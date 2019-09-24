@@ -1,14 +1,13 @@
 package main;
 
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class main {
+public class Main {
 
 	public static void main(String[] args) {
+		
 		   JFrame window = new JFrame();
 		   window.setVisible(true);
 		   window.setSize(500, 500);
@@ -25,8 +24,7 @@ public class main {
 		   JButton buttonDestination = new JButton("Destination File");
 		   buttonDestination.setBounds(190, 225, 120, 25);
 		   panel.add(buttonDestination);
-		   
-		    
+
 	}
 
 }
