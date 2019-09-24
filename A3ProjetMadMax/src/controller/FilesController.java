@@ -16,8 +16,18 @@ public class FilesController {
 
 	
 	
-	public void getMessage() {
-		filesModel.browseFiles();
+	public boolean loadFiles() {
+		boolean check = true;
+		try {
+			System.out.println(filesModel.lireFicher(filesModel.browseFiles()));
+		} catch (Exception e) {
+			//e.printStackTrace();
+			check = false;
+		}
+		
+		return check;
+		
+	
 		
 		
 	}
