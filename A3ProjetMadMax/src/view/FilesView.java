@@ -1,9 +1,16 @@
 package view;
 
+import controller.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class FilesView extends MainFrame {
+public class FilesView extends MainFrame implements ActionListener {
+	
+		private FilesController filesController;
 	
 		public FilesView() {
 			//super();	
@@ -16,6 +23,18 @@ public class FilesView extends MainFrame {
 		   JButton buttonDestination = new JButton("Destination File");
 		   buttonDestination.setBounds(190, 225, 120, 25);
 		   panel.add(buttonDestination);
-
+		   
+		   buttonSource.addActionListener(this);
 }
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			filesController.getMessage();
+		}
+		
+		public void setController(FilesController filesController) {
+			this.filesController = filesController;
+		}
+
+
 }
