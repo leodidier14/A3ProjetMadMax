@@ -14,22 +14,43 @@ public class FilesController {
 		
 	}
 
+	public void chooseFile() {
+		filesModel.mooveFile(filesModel.browseFiles());
+	}
 	
-	
-	public boolean loadFiles() {
+	public boolean chooseDirectory() {
+		boolean check = true;
+		try {
+			filesModel.browseDirectory();
+		} catch (Exception e) {
+			e.printStackTrace();
+			check = false;
+		} 
+		return check;	
+	}
+	 
+	/*public boolean loadFiles() {
 		boolean check = true;
 		try {
 			System.out.println(filesModel.lireFicher(filesModel.browseFiles()));
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			check = false;
 		}
 		
-		return check;
-		
+		return check;	
+	}*/
 	
-		
-		
+	public boolean readFiles(String path) {
+		boolean check = true;
+		try {
+			System.out.println(filesModel.readFile(path));
+		} catch (Exception e) {
+			e.printStackTrace();
+			check = false;
+		}
+		 
+		return check;	
 	}
 
 }
