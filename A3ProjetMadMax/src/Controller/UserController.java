@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.CAD;
+import Model.CADopen;
 import Model.User;
 
 public class UserController {
@@ -11,7 +11,7 @@ public class UserController {
 
         boolean res = false;
         User user = new User(username, password);
-        CAD cad = new CAD();
+        CADopen cad = new CADopen();
         if (cad.getResultSize(user.prepare_request()) == 1)
         {
             res = true;
