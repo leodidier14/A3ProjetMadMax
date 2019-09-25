@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/jujub/Desktop/exia/A2 2018-2019/Semestre 1/cour/Projet PMF/prosit Java 2.4/java connection arduino/Connection/mysql-connector.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
