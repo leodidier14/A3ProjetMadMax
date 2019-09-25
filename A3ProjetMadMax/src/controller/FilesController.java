@@ -18,15 +18,9 @@ public class FilesController {
 		filesModel.mooveFile(filesModel.browseFiles());
 	}
 	
-	public boolean chooseDirectory() {
-		boolean check = true;
-		try {
-			filesModel.browseDirectory();
-		} catch (Exception e) {
-			e.printStackTrace();
-			check = false;
-		} 
-		return check;	
+	public String chooseDirectory() {
+		String path = filesModel.browseDirectory();
+		return path;	
 	}
 	 
 	/*public boolean loadFiles() {

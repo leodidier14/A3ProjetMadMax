@@ -12,11 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class FilesView extends MainFrame implements ActionListener {
+public class FilesView extends MainFrame {
 
  private FilesController filesController;
  private JPanel panel = new JPanel();
-
+ private List l1 = new List(4, false);
  public FilesView() {
 
   JLabel title = new JLabel("MadMaxDecrypt");
@@ -27,26 +27,27 @@ public class FilesView extends MainFrame implements ActionListener {
   this.panel.setLayout(null);
   this.window.setContentPane(panel);
   
+  
   JButton buttonSource = new JButton(new AbstractAction("Charger un fichier") {
    private static final long serialVersionUID = 1L;
    public void actionPerformed(ActionEvent e) {
     filesController.chooseFile();
-    window.repaint();
-    window.revalidate();
+    refresh();
    }
   });
   buttonSource.setBounds(160, 80, 170, 25);
   this.panel.add(buttonSource);
+
   
   JButton buttonDestination = new JButton(new AbstractAction("Dossier de destination") {
    private static final long serialVersionUID = 1L;
    @Override
    public void actionPerformed(ActionEvent e) {
-    if (filesController.chooseDirectory()) {
-     JLabel loaded = new JLabel("Destination choisie");
+     
+     JLabel loaded = new JLabel(filesController.chooseDirectory());
      panel.add(loaded);
-     loaded.setBounds(160, 150, 170, 25);
-    } 
+     loaded.setBounds(160, 150,270, 25);
+     
    }
   });
   buttonDestination.setBounds(160, 120, 170, 25);
@@ -57,7 +58,7 @@ public class FilesView extends MainFrame implements ActionListener {
 
   JButton b = new JButton("Fichier à decrypter");
   b.setBounds(160, 190, 170, 25);
-  List l1 = new List(4, false);
+ 
   l1.setBounds(160, 220, 170, 70);
   this.panel.add(l1);
   this.panel.add(b);
@@ -85,17 +86,21 @@ public class FilesView extends MainFrame implements ActionListener {
  }
  
  
- 
  public void setController(FilesController filesController) {
   this.filesController = filesController;
  }
 
- @Override
- public void actionPerformed(ActionEvent e) {
-  // TODO Auto-generated method stub
-
+ public void refresh() {
+	 l1.removeAll();
+	 System.out.println("bouton");
+	  File repertoire = new File("D:\\Users\\leodi\\Bureau\\test");
+	  String liste[] = repertoire.list();
+	  if (liste != null) {
+	   for (int i = 0; i < liste.length; i++) {  
+	    l1.add(liste[i]);
+	   }
+	  }
  }
-
 
 
 }
