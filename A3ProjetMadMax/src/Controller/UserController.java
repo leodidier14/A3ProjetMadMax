@@ -11,6 +11,7 @@ public class UserController {
 
         boolean res = false;
         User user = new User(username, password);
+        System.out.println();
         CADopen cad = new CADopen();
         if (cad.getResultSize(user.prepare_request()) == 1)
         {

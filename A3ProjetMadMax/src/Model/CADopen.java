@@ -9,6 +9,9 @@ import java.sql.Statement;
 public class CADopen {
 	
 	private static CADopen INSTANCE= null;
+    private String url = "jdbc:mysql://localhost/good?useSSL=false&serverTimezone=UTC";
+    private String username = "root";
+    private String password = "";
     private Connection connection = null;
     private Statement statement;
     private ResultSet rs;
@@ -26,10 +29,9 @@ public class CADopen {
 	
     
     private void open() {
-    	CAD open = new CAD(); 
         try {
-            //Class.forName("com.mysql.jdbc.driver");
-            connection = DriverManager.getConnection(open.getUrl(), open.getUsername(), open.getPassword());
+            Class.forName("com.mysql.jdbc.driver");
+            connection = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,7 +49,31 @@ public class CADopen {
         }
         return size;
     }
-    
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Connection getConnection() {
         return connection;
     }
