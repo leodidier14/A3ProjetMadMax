@@ -1,10 +1,6 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class CADopen {
 	
@@ -30,7 +26,7 @@ public class CADopen {
     
     private void open() {
         try {
-            Class.forName("com.mysql.jdbc.driver");
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,8 +38,8 @@ public class CADopen {
         try {
             Statement state = this.connection.createStatement();
             ResultSet res = state.executeQuery(req_sql);
-            size = res.getFetchSize();
-
+            res.last();
+            size = res.getRow();
         } catch (SQLException e) {
             e.printStackTrace();
         }

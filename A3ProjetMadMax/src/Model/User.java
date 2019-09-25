@@ -37,6 +37,6 @@ public class User {
 
     public String prepare_request()
     {
-        return "SELECT ID FROM users WHERE username='" + this.username +"' AND password='" + this.password +"';";
+        return "SELECT * FROM users WHERE Login_Users='" + this.username + "'AND Password_Users='" + this.password +"';";
     }
 }
