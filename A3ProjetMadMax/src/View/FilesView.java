@@ -1,7 +1,5 @@
-package view;
-
-import controller.*;
-
+package View;
+import Controller.FilesController;
 import java.awt.Font;
 import java.awt.List;
 import java.awt.event.ActionEvent;
@@ -12,20 +10,23 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class FilesView extends MainFrame {
 
  private FilesController filesController;
  private JPanel panel = new JPanel();
  private List l1 = new List(4, false);
  public FilesView() {
-
+	 
+	 this.panel.setLayout(null);
+	 this.window.setContentPane(panel);
+	  
   JLabel title = new JLabel("MadMaxDecrypt");
   Font font = new Font("Arial", Font.BOLD, 18);
   title.setFont(font);
   this.panel.add(title);
-  title.setBounds(170, 30, 200, 25);
-  this.panel.setLayout(null);
-  this.window.setContentPane(panel);
+  title.setBounds(120, 30, 200, 25);
+  
   
   
   JButton buttonSource = new JButton(new AbstractAction("Charger un fichier") {
@@ -35,7 +36,7 @@ public class FilesView extends MainFrame {
     refresh();
    }
   });
-  buttonSource.setBounds(160, 80, 170, 25);
+  buttonSource.setBounds(110, 80, 170, 25);
   this.panel.add(buttonSource);
 
   
@@ -46,20 +47,20 @@ public class FilesView extends MainFrame {
      
      JLabel loaded = new JLabel(filesController.chooseDirectory());
      panel.add(loaded);
-     loaded.setBounds(160, 150,270, 25);
+     loaded.setBounds(110, 150,270, 25);
      
    }
   });
-  buttonDestination.setBounds(160, 120, 170, 25);
+  buttonDestination.setBounds(110, 120, 170, 25);
   this.panel.add(buttonDestination);
 
   JLabel label = new JLabel();
-  label.setBounds(160, 270, 170, 70);
+  label.setBounds(110, 270, 170, 70);
 
   JButton b = new JButton("Fichier à decrypter");
-  b.setBounds(160, 190, 170, 25);
+  b.setBounds(110, 190, 170, 25);
  
-  l1.setBounds(160, 220, 170, 70);
+  l1.setBounds(110, 220, 170, 70);
   this.panel.add(l1);
   this.panel.add(b);
   this.panel.add(label);

@@ -1,5 +1,9 @@
-
 package Main;
+
+import Controller.FilesController;
+import Model.FilesModel;
+import View.FilesView;
+import View.MainFrame;
 
 import java.sql.Connection;
 
@@ -9,12 +13,21 @@ import View.AuthForm;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		AuthForm auth = new AuthForm(500,500);
-		auth.setVisible(true);
-		CADopen bdd = new CADopen();
-		Connection con = null;
-
+		
+		FilesView filesView =  new FilesView();
+		FilesModel filesModel = new FilesModel();
+        FilesController controllerModel = new FilesController(filesView, filesModel);
+        filesView.setController(controllerModel);
+        //filesModel.setController(controllerModel);
+        
+        AuthForm authView = new AuthForm();
+		//MainFrame view = new MainFrame();
+		
+				
+		
+        CADopen bdd = new CADopen();
+        Connection con = null;
 	}
 
 }
+

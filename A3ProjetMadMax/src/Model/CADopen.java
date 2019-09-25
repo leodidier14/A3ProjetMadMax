@@ -26,7 +26,7 @@ public class CADopen {
     
     private void open() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
