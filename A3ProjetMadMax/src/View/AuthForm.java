@@ -1,12 +1,19 @@
 package View;
 
+import Controller.UserController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class AuthForm extends JPanel {
+public class AuthForm extends JFrame {
 
+
+    private JPanel panel = new JPanel();
     private Font lblpolice = new Font("Arial", Font.BOLD, 18);
     private Font police = new Font("Arial", Font.PLAIN, 18);
+    private UserController UserController;
 
 
     public AuthForm(int width, int height) {
@@ -20,6 +27,8 @@ public class AuthForm extends JPanel {
         JTextField txt_login = new JTextField();
         JPasswordField txt_password = new JPasswordField();
         JButton btn_login = new JButton("Connexion");
+
+
         JButton btn_quit = new JButton("Quitter");
         Font lblpolice = new Font("Arial", Font.BOLD, 18);
         Font police = new Font("Arial", Font.PLAIN, 18);
@@ -32,9 +41,15 @@ public class AuthForm extends JPanel {
         txt_login.setBounds(180, 160, 180, 40);
         txt_login.setFont(police);
         txt_password.setBounds(180, 240, 180, 40);
-        btn_login.setBounds(120, 340, 120, 60);
-        btn_login.setFont(police);
+        //btn_login.setBounds(120, 340, 120, 60);
+        //btn_login.setFont(police);
         btn_quit.setBounds(260, 340, 120, 60);
+        btn_quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserController.authenticate(txt_login.getText(), String.valueOf(txt_password.getPassword()));
+            }
+        });
         btn_quit.setFont(police);
 
 
@@ -48,5 +63,11 @@ public class AuthForm extends JPanel {
 
     }
 
+    public Controller.UserController getUserController() {
+        return UserController;
+    }
 
+    public void setUserController(Controller.UserController userController) {
+        UserController = userController;
+    }
 }

@@ -5,7 +5,9 @@ import Model.User;
 
 public class UserController {
 
-    public boolean authenticate(String username, String password) {
+    public static boolean authenticate(String username, String password) {
+
+        System.out.println("Username : " + username + "\nPassword : " + password);
 
         boolean res = false;
         User user = new User(username, password);

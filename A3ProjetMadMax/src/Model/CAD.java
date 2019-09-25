@@ -5,7 +5,7 @@ import java.sql.*;
 public class CAD {
 
     private static CAD INSTANCE = null;
-    private String url = "jdbc:mysql:localhost:3306/projet_madmax";
+    private String url = "jdbc:mysql:localhost:3306/projet_madmax:setTimezone=UTC";
     private String username = "root";
     private String password = "";
     private Connection connection;
@@ -75,7 +75,7 @@ public class CAD {
 
     private void open() {
         try {
-            //Class.forName("com.mysql.jdbc.driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             this.connection = DriverManager.getConnection(this.url, this.username, this.password);
             System.out.println("Ca marche!");
         } catch (Exception e) {
