@@ -1,53 +1,3 @@
-<<<<<<< HEAD
-
-    
-    package Model;
-
-    import java.sql.*;
-
-    public class CADopen {
-    	
-    	private static CADopen INSTANCE= null;
-    	private String url = "jdbc:mysql://localhost/projetseminaire?useSSL=false&serverTimezone=UTC";
-        private String username = "root";
-        private String password = "";
-        private Connection connection = null;
-        private Statement statement;
-        private ResultSet rs;
-        
-    	public CADopen() {
-    		this.open();
-    	}
-    	
-    	public static synchronized CADopen getInstance() {
-    		if (CADopen.INSTANCE == null) {
-    			CADopen.INSTANCE = new CADopen();
-    		}
-    		return CADopen.INSTANCE;
-    	}
-    	
-        
-        private void open() {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public int getResultSize(String req_sql) {
-            int size = 0;
-            try {
-                Statement state = this.connection.createStatement();
-                ResultSet res = state.executeQuery(req_sql);
-                res.last();
-                size = res.getRow();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return size;
-=======
 package Model;
 
 import java.sql.*;
@@ -55,7 +5,7 @@ import java.sql.*;
 public class CADopen {
 	
 	private static CADopen INSTANCE= null;
-    private String url = "jdbc:mysql://localhost/good?useSSL=false&serverTimezone=UTC";
+    private String url = "jdbc:mysql://localhost/a3_projetmadmax_bdd?useSSL=false&serverTimezone=UTC";
     private String username = "root";
     private String password = "";
     private Connection connection = null;
@@ -92,8 +42,9 @@ public class CADopen {
             size = res.getRow();
         } catch (SQLException e) {
             e.printStackTrace();
->>>>>>> a3d0e67e2ea469a7f0efbf955e3fb4f559d16dbe
         }
+        return size;
+    }
 
         public String getUrl() {
             return url;
@@ -142,6 +93,7 @@ public class CADopen {
         public void setRs(ResultSet rs) {
             this.rs = rs;
         }
+}
 
 
-    }
+    
