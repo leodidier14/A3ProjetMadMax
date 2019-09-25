@@ -21,7 +21,7 @@
     	public static synchronized CADopen getInstance() {
     		if (CADopen.INSTANCE == null) {
     			CADopen.INSTANCE = new CADopen();
-    		}
+    		} 
     		return CADopen.INSTANCE;
     	}
     	
