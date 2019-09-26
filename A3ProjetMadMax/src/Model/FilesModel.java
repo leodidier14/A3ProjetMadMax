@@ -10,7 +10,49 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 //import controller.FilesController;
 
+
+import java.io.*;
+
 public class FilesModel {
+    public String readFile(String path) throws IOException {
+        BufferedReader br = null;
+        String ligne;
+        String res = "";
+
+        try {
+            br = new BufferedReader(new FileReader(path));
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        while ((ligne = br.readLine()) != null)
+            res = res + ligne;
+        try {
+            br.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return res;
+    }
+
+    public void writeFile(String path, String texte) {
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter(path, "UTF-8");
+            writer.println(texte);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+
+
+    
+    
+    
 
     //private FilesController filesController;
 
@@ -39,7 +81,7 @@ public class FilesModel {
         return path;
     }
 
-    public String readFile(String path) throws Exception {
+   /* public String readFile(String path) throws Exception {
         InputStream stream;
         stream = new FileInputStream(path);
         StringBuilder reponse;
@@ -50,11 +92,11 @@ public class FilesModel {
         stream.close();
 
         return reponse.toString();
-    }
+    }*/
 
     public void mooveFile(String sourceParam) {
         Path source = Paths.get(sourceParam);
-        Path destination = Paths.get("D:\\test\\" + source.getFileName());
+        Path destination = Paths.get("D:\\Users\\leodi\\Bureau\\test\\" + source.getFileName());
         System.out.println(source);
         System.out.println(destination);
         try {
@@ -67,5 +109,5 @@ public class FilesModel {
 	/*public void setController(FilesController filesController) {
 		this.filesController = filesController;
 	}*/
-
 }
+

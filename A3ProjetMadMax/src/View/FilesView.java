@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 public class FilesView extends JPanel {
 
     private List l1 = new List(4, false);
-    private String destDirectory = "C:\\test\\";
-    private String DEFAULT_DIRECTORY = "D:\\test\\";
+    private String destDirectory = "D:\\Users\\leodi\\Bureau\\test2";
+    private String DEFAULT_DIRECTORY = "D:\\Users\\leodi\\Bureau\\test";
     private static JPanel pan;
 
     public FilesView() {
