@@ -12,16 +12,17 @@ public class UserController {
         boolean res = false;
         User user = new User(username, password);
         System.out.println(user.getUsername() + " " + user.getPassword());
-        CADopen cad = new CADopen(); 
+        /*CADopen cad = new CADopen();
         if (cad.getResultSize(user.prepare_request()) == 1)
         {
             res = true;
-            System.out.println("Connecté");
+            System.out.println("Connectï¿½");
+            StateController.changeState();
             //Auth valide, on enclenche le passage au second panel
         }
         else {
         	System.out.println("Utilisateur non reconnu");
-        }
+        } */
 
         return res;
     }}
