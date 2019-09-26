@@ -58,7 +58,7 @@ public class AuthForm extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (UserController.authenticate(txt_login.getText(), String.valueOf(txt_password.getPassword()))) {
-                    StateController.changeState();
+                   // StateController.changeState();
                 }
                 else
                 {
