@@ -39,12 +39,12 @@ public class Main {
         MainFrame mainFrame = new MainFrame(stateController);
         StateController.setFrame(mainFrame);
 
-        FilesView filesView = new FilesView();
-        FilesModel filesModel = new FilesModel();
-        FilesController controllerModel = new FilesController();
+        //FilesView filesView = new FilesView();
+        //FilesModel filesModel = new FilesModel(StateController.getCurrentUser().getID());
+        //FilesController controllerModel = new FilesController();
         //filesModel.setController(controllerModel);
 
-        AuthForm authView = new AuthForm();
+       // AuthForm authView = new AuthForm();
         //MainFrame view = new MainFrame();
 
 

@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.StateController;
+
 import java.io.IOException;
 
 public class Model {
@@ -9,7 +11,7 @@ public class Model {
 
     public Model() {
         decryptModel = new DecryptModel();
-        filesModel = new FilesModel();
+        filesModel = new FilesModel(StateController.getCurrentUser().getID());
     }
 
     public String decrypt(String inputString, String key) {
@@ -22,13 +24,15 @@ public class Model {
     }
 
     public void writeFile(String path, String texte) {
-        filesModel.writeFile(path, texte);
+        FilesModel fm  = new FilesModel(path);
+        filesModel.writeFile(texte);
     }
 
     public String readFile(String path){
+        FilesModel fm = new FilesModel(path);
         String res = "";
         try {
-            res = filesModel.readFile(path);
+            res = filesModel.readFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

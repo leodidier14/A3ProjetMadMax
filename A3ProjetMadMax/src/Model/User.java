@@ -1,12 +1,16 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class User {
 
     private int ID;
     private String username;
     private String password;
+    private ArrayList<FilesModel> files;
 
     public User(String username, String password) {
+        this.files = new ArrayList<FilesModel>();
         this.username = username;
         this.password = password;
     }
@@ -35,13 +39,23 @@ public class User {
         this.password = password;
     }
 
+    public ArrayList<FilesModel> getFiles() {
+        return files;
+    }
+
+    public void setFiles(ArrayList<FilesModel> files) {
+        this.files = files;
+    }
+
     public String prepare_request()
     {
-        return "SELECT * FROM users WHERE Login_Users='" + this.username + "'AND Password_Users='" + this.password +"';";
+        return "SELECT ID_Users FROM users WHERE Login_Users='" + this.username + "'AND Password_Users='" + this.password +"';";
     }
 
     public String add_User()
     {
         return "INSERT INTO users COLUMNS";
     }
+
+
 }

@@ -1,26 +1,80 @@
 package Model;
 
 import javax.swing.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.*;
+import java.nio.file.*;
+
 //import controller.FilesController;
 
-
-import java.io.*;
-
 public class FilesModel {
-    public String readFile(String path) throws IOException {
+
+    private int ID;
+    private String name;
+    private String path;
+    private int ownerID;
+
+    public FilesModel(int ID)
+    {
+        this.ownerID = ID;
+    }
+
+    public FilesModel(String path)
+    {
+        this.path = path;
+    }
+
+
+    public FilesModel(int ID, int userID, String path)
+    {
+        this.ID = ID;
+        this.ownerID = userID;
+        this.path = path;
+    }
+
+    public FilesModel(String name, String path) {
+        this.name = name;
+        this.path = path;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public int getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(int ownerID) {
+        this.ownerID = ownerID;
+    }
+
+    public String readFile() throws IOException {
         BufferedReader br = null;
         String ligne;
         String res = "";
 
         try {
-            br = new BufferedReader(new FileReader(path));
+            br = new BufferedReader(new FileReader(this.path));
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -34,25 +88,35 @@ public class FilesModel {
         return res;
     }
 
-    public void writeFile(String path, String texte) {
+    public void writeFile(String text) {
         PrintWriter writer;
         try {
-            writer = new PrintWriter(path, "UTF-8");
-            writer.println(texte);
+            writer = new PrintWriter(this.path, "UTF-8");
+            writer.println(text);
             writer.close();
         } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(new JFrame(), "Fichier introuvable", "Erreur", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
+            JOptionPane.showMessageDialog(new JFrame(), "L'encodage du fichier n'est pas supporte", "Erreur", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
-    
-    
 
+    public String addFile() {
+        return "INSERT INTO `file` (`User_ID`,`Path_File`) VALUES ('" + this.ownerID + "',\"" + this.path + "\");";
+    }
 
-    
-    
-    
+    public String removeFile()
+    {
+        return "DELETE FROM `file` WHERE ID_File='"+ this.getID() +"';";
+    }
+
+    public String getFile()
+    {
+        return "SELECT * FROM file WHERE User_ID='"+ this.getOwnerID() +"';";
+    }
+
 
     //private FilesController filesController;
 
@@ -94,16 +158,25 @@ public class FilesModel {
         return reponse.toString();
     }*/
 
-    public void mooveFile(String sourceParam) {
+   // CHANGE
+    public void mooveFile(String sourceParam,String destinationPath) {
         Path source = Paths.get(sourceParam);
-        Path destination = Paths.get("C:\\Users\\Lafarge Dylan\\Documents\\aaa\\" + source.getFileName());
+        Path destination = Paths.get(destinationPath + "\\" + source.getFileName());
         System.out.println(source);
         System.out.println(destination);
         try {
             Files.move(source, destination, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
+        }
+        catch (NoSuchFileException e) {
+            JOptionPane.showMessageDialog(new JFrame(), "Le chemin specifie est incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+        catch (IOException e)
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "IOException", "Erreur", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
     }
 	
 	/*public void setController(FilesController filesController) {

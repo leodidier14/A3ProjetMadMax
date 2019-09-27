@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.User;
 import View.AuthForm;
 import View.FilesView;
 import View.MainFrame;
@@ -9,40 +10,10 @@ import java.awt.*;
 
 public class StateController {
 
-    private static  boolean loggedIn = false;
+    private static boolean loggedIn = false;
+    private static User currentUser = null;
     private static MainFrame frame;
 
-    public static void changeState()
-    {
-        if(!loggedIn)
-        {
-            loggedIn = !loggedIn;
-            frame.changeCurrentFrame(new FilesView());
-        }
-        else
-        {
-           loggedIn = !loggedIn;
-           frame.changeCurrentFrame(new AuthForm());
-        }
-    }
-
-    public static boolean validate(Container[] components)
-    {
-        boolean res = true;
-        for (Container c: components) {
-            switch (c.getClass().getName())
-            {
-
-                    //On pourra rajouter des cases en fonction des composants à tester
-
-            }
-
-
-
-        }
-
-        return res;
-    }
 
     public static boolean isLoggedIn() {
         return loggedIn;
@@ -59,4 +30,44 @@ public class StateController {
     public static void setFrame(MainFrame frame) {
         StateController.frame = frame;
     }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User CurrentUser) {
+        currentUser = CurrentUser;
+    }
+
+    public static void changeState() {
+        if (!loggedIn) {
+            loggedIn = !loggedIn;
+            frame.changeCurrentFrame(new FilesView());
+        } else {
+            loggedIn = !loggedIn;
+            frame.changeCurrentFrame(new AuthForm());
+        }
+    }
+
+    public static void updateFrame()
+    {
+        frame.repaint();
+        frame.revalidate();
+    }
+
+    public static boolean validate(Container[] components) {
+        boolean res = true;
+        for (Container c : components) {
+            switch (c.getClass().getName()) {
+
+                //On pourra rajouter des cases en fonction des composants à tester
+
+            }
+
+
+        }
+
+        return res;
+    }
+
 }
