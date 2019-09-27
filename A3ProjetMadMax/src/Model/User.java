@@ -39,4 +39,9 @@ public class User {
     {
         return "SELECT * FROM users WHERE Login_Users='" + this.username + "'AND Password_Users='" + this.password +"';";
     }
+
+    public String add_User()
+    {
+        return "INSERT INTO users COLUMNS";
+    }
 }

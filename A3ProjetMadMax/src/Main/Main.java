@@ -48,8 +48,6 @@ public class Main {
         //MainFrame view = new MainFrame();
 
 
-        CADopen bdd = new CADopen();
-        Connection con = null;
 
     }
 }

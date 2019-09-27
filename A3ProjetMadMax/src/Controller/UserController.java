@@ -17,12 +17,11 @@ public class UserController {
         {
             res = true;
             System.out.println("Connect�");
-            StateController.changeState();
             //Auth valide, on enclenche le passage au second panel
         }
         else {
         	System.out.println("Utilisateur non reconnu");
-        } 
+        }
 
         return res;
     }}

@@ -4,6 +4,8 @@ import Controller.StateController;
 import Controller.UserController;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,12 +55,13 @@ public class AuthForm extends JPanel {
         //Bouton login
 
         JButton btn_login = new JButton("Connexion");
+        btn_login.setEnabled(false);
         btn_login.setBounds(150, 230, 100, 25);
         btn_login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (UserController.authenticate(txt_login.getText(), String.valueOf(txt_password.getPassword()))) {
-                   // StateController.changeState();
+                   StateController.changeState();
                 }
                 else
                 {
@@ -80,6 +83,28 @@ public class AuthForm extends JPanel {
             }
         });
         this.add(btn_quit);
+
+        txt_login.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                changed();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                changed();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                changed();
+            }
+
+            public void changed() {
+                if (txt_login.getText().equals("") ){
+                    btn_login.setEnabled(false);
+                }
+                else {
+                    btn_login.setEnabled(true);
+                }
+
+            }
+        });
     }
 
 }
