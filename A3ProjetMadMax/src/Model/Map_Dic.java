@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Map_Dic {
     public boolean findWord(String message) {
-        String dic[] = {"ceci", "test", "encore", "autre"};
+        String dic[] = {"Bonjour", "a", "tous", "ceci", "est", "un", "test"};
         String split[] = message.split(" ");
         boolean isGood = false;
         int i = 0;
