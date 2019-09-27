@@ -5,7 +5,8 @@ import Model.Model;
 public class DecryptController {
 
     Model model;
-    String cle = "awqpaaaaaaaa";
+    //String cle = "awqpmndfaaaa";
+    String cle = "aaaaaaaaaaaa";
     int id = 0;
     char[] keyTab = cle.toCharArray();
     String messageDecrypte = "";
@@ -26,7 +27,7 @@ public class DecryptController {
 
     public String generateKey() {
         keyTab[11] = (char) (97 + id % 26);
-        for (int i = 1; i < 8; i++) {
+        for (int i = 1; i < 4; i++) {
             keyTab[11 - i] = (char) (97 + ((int) (id / Math.pow(26, i)) % 26));
         }
         id++;

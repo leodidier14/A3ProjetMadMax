@@ -5,7 +5,7 @@ import java.sql.*;
 public class CADopen {
 	
 	private static CADopen INSTANCE= null;
-    private String url = "jdbc:mysql://localhost/a3_projetmadmax_bdd?useSSL=false&serverTimezone=UTC";
+    private String url = "jdbc:mysql://localhost:3308/a3_projetmadmax_bdd?useSSL=false&serverTimezone=UTC";
     private String username = "root";
     private String password = "";
     private Connection connection = null;
@@ -27,7 +27,7 @@ public class CADopen {
     private void open() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());
+            this.connection = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }

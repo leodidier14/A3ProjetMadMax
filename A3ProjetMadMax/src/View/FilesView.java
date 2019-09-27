@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 public class FilesView extends JPanel {
 
     private List l1 = new List(4, false);
-    private String destDirectory = "D:\\Users\\leodi\\Bureau\\test2";
-    private String DEFAULT_DIRECTORY = "D:\\Users\\leodi\\Bureau\\test";
+    private String destDirectory = "C:\\Users\\Lafarge Dylan\\Documents\\aaa2";
+    private String DEFAULT_DIRECTORY = "C:\\Users\\Lafarge Dylan\\Documents\\aaa";
     private static JPanel pan;
 
     public FilesView() {
@@ -42,7 +42,7 @@ public class FilesView extends JPanel {
 
 
         JButton buttonDestination = new JButton(new AbstractAction("Dossier de destination") {
-            @Override
+            //@Override
             public void actionPerformed(ActionEvent e) {
                 destDirectory = FilesController.chooseDirectory();
                 JLabel loaded = new JLabel(destDirectory);
