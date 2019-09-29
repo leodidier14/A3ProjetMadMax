@@ -8,18 +8,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 
 public class FilesView extends JPanel {
 
-    private List l1 = new List(5, false);
     private String destDirectory = "C:\\Users\\Lafarge Dylan\\Documents\\aaa2";
     private static JPanel pan;
 
     public FilesView() {
 
-        pan= this;
+        pan = this;
         this.setLayout(null);
         JLabel title = new JLabel("MadMaxDecrypt");
         title.setBounds(120, 30, 200, 25);
@@ -29,6 +27,7 @@ public class FilesView extends JPanel {
 
         JButton buttonSource = new JButton(new AbstractAction("Charger un fichier") {
             public void actionPerformed(ActionEvent e) {
+
                 FilesController.chooseFile();
                 refresh();
             }
@@ -54,40 +53,33 @@ public class FilesView extends JPanel {
         JLabel label = new JLabel();
         label.setBounds(110, 270, 170, 70);
 
-        JButton b = new JButton("Fichier � decrypter");
+        JButton b = new JButton("Fichier a decrypter");
         b.setBounds(110, 190, 170, 25);
+
+        JList l1 = new JList();
 
         l1.setBounds(110, 220, 170, 70);
         this.add(l1);
         this.add(b);
         this.add(label);
+
+        if (StateController.getCurrentUser() != null) {
+            l1.setListData(StateController.getCurrentUser().getFiles().toArray());
+        }
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(l1.getSelectedItem() != null)
-                {
-                    String data = l1.getItem(l1.getSelectedIndex()) + " decrypt�";
-                    String path = l1.getItem(l1.getSelectedIndex());
-                    System.out.println(path);
+                if (l1.getSelectedValue() != null) {
+                    FilesModel fm = (FilesModel) l1.getSelectedValue();
+                    String path = fm.getPath();
                     FilesController.readFiles(path);
-                    FilesController.mooveFile();
-                    label.setText(data);
-                }
-                else
-                {
+                    FilesController.mooveFile(fm.getID());
+                    label.setText(path);
+                } else {
                     JOptionPane.showMessageDialog(new JFrame(), "Veuillez selectionner un fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         });
-
-        if(StateController.getCurrentUser() != null)
-        {
-            for(FilesModel file : StateController.getCurrentUser().getFiles())
-            {
-                System.out.println(file.getPath());
-                l1.add(file.getPath());
-            }
-        }
 
 
         JButton btn_disconnect = new JButton("Deconnexion");
@@ -104,14 +96,6 @@ public class FilesView extends JPanel {
     }
 
     public void refresh() {
-        l1.removeAll();
-        if(StateController.getCurrentUser() != null)
-        {
-           /* for(String path : StateController.getCurrentUser().getFiles())
-            {
-                l1.add(path);
-            }*/
-        }
         StateController.updateFrame();
     }
 

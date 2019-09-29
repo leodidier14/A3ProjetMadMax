@@ -18,9 +18,6 @@ public class Controller {
         return decryptController.findWord(message);
     }
 
-    public void writeFile(String path, String texte) {
-        decryptController.writeFile(path, texte);
-    }
 
     public String readFile(String path){
         return decryptController.readFile(path);

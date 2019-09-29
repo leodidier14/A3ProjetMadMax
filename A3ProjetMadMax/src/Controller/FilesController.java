@@ -29,9 +29,16 @@ public class FilesController {
 
     public static void chooseFile() {
         FilesModel fm = new FilesModel(StateController.getCurrentUser().getID());
-        fm.setPath(fm.browseFiles());
-        System.out.println("Path choose : " + fm.getPath() );
-        cad.m_actionRows(fm.addFile());
+        fm.setPath(browseFiles().replace("\\", "\\\\"));
+        Path path = Paths.get(fm.getPath());
+        System.out.println("Nom du fichier : " + path.getFileName().toString());
+        fm.setName(path.getFileName().toString());
+        if (!fm.getPath().equals("") || fm.getPath() != null) {
+            cad.m_actionRows(fm.addFile());
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "Le chemin specifie est incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
         //fm.mooveFile(fm.browseFiles(), destinationPath);
     }
 
@@ -49,15 +56,16 @@ public class FilesController {
         return path;
     }
 
-    public static void mooveFile() {
-        FilesModel fm = new FilesModel(StateController.getCurrentUser().getID());
-        String sourceParam = fm.browseFiles();
-        Path source = Paths.get(sourceParam);
-        Path destination = Paths.get(destinationPath + "\\" + source.getFileName());
+    public static void mooveFile(int id) {
+
+        FilesModel fm = getFileByID(id);
+        Path source = Paths.get(fm.getPath());
+        Path destination = Paths.get(destinationPath + "\\" + fm.getName());
         System.out.println(source);
         System.out.println(destination);
         try {
             Files.move(source, destination, StandardCopyOption.REPLACE_EXISTING);
+            removeFile(fm.getID());
         } catch (NoSuchFileException e) {
             JOptionPane.showMessageDialog(new JFrame(), "Le chemin specifie est incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
@@ -66,18 +74,49 @@ public class FilesController {
             e.printStackTrace();
         }
 
+
+    }
+
+    //Selection de fichiers
+
+    public static String browseFiles() {
+        String path = "";
+        JFileChooser sourceChoice = new JFileChooser();
+        int retour = sourceChoice.showOpenDialog(sourceChoice);
+
+        if (retour == JFileChooser.APPROVE_OPTION) {
+            sourceChoice.getSelectedFile().getName();
+            path = sourceChoice.getSelectedFile().getAbsolutePath();
+        }
+        return path;
+    }
+
+    //Selection du dossier
+
+    public String browseDirectory() {
+        String path = "";
+        JFileChooser destinationChoice = new JFileChooser();
+        destinationChoice.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int retour = destinationChoice.showOpenDialog(destinationChoice);
+
+        if (retour == JFileChooser.APPROVE_OPTION) {
+            destinationChoice.getSelectedFile().getName();
+            path = destinationChoice.getSelectedFile().getAbsolutePath();
+        }
+        return path;
     }
 
 
     public static boolean readFiles(String path) {
-        System.out.println("Path : " + path);
-        FilesModel fm = new FilesModel(path);
+        FilesModel fm = new FilesModel();
+        fm.setPath(path);
+        System.out.println("Path : " + fm.getPath());
         Model model = new Model();
         DecryptController decryptController = new DecryptController(model);
         boolean check = true;
         try {
-            System.out.println(fm.readFile());
-            System.out.println(decryptController.decrypt(fm.readFile()));
+            System.out.println(fm.readFile(path));
+            System.out.println(decryptController.decrypt(fm.readFile(path)));
         } catch (Exception e) {
             e.printStackTrace();
             check = false;
@@ -85,6 +124,7 @@ public class FilesController {
 
         return check;
     }
+
 
     public static void getFilesbyOwnerID(int ID) {
         FilesModel fm = new FilesModel(ID);
@@ -94,8 +134,8 @@ public class FilesController {
             try {
                 if (!rs.next()) break;
 
-                FilesModel file = new FilesModel(rs.getInt("ID_File"), rs.getInt("User_ID"), rs.getString("Path_File"));
-                System.out.println("ID :" + file.getID() + "\nOwnerID :" + file.getOwnerID() + "\nPath :" + file.getPath());
+                FilesModel file = new FilesModel(rs.getInt("ID_File"), rs.getInt("User_ID"), rs.getString("name"), rs.getString("Path_File"));
+                System.out.println("ID :" + file.getID() + "\nOwnerID :" + file.getOwnerID() + "Name : " + file.getName() + "\nPath :" + file.getPath());
                 fileList.add(file);
 
             } catch (SQLException e) {
@@ -109,12 +149,26 @@ public class FilesController {
         }
     }
 
-    public static void getFileByID(int id) {
+    public static FilesModel getFileByID(int id) {
+        FilesModel res = null;
+        for (FilesModel fm : StateController.getCurrentUser().getFiles()) {
+            if (fm.getID() == id) {
+                res = fm;
+                break;
+            }
+        }
+        return res;
     }
 
     public static void removeFile(int id) {
-        FilesModel fm = new FilesModel(StateController.getCurrentUser().getID());
-        cad.m_getRows(fm.removeFile());
+        FilesModel fm = getFileByID(id);
+        if (fm != null && StateController.getCurrentUser().getID() == fm.getOwnerID()) {
+            cad.m_actionRows(fm.removeFile());
+            StateController.getCurrentUser().getFiles().remove(fm);
+            StateController.updateFrame();
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "Vous n'etes pas autorisé a supprimer ce fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

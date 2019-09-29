@@ -5,8 +5,7 @@ import Model.Model;
 public class DecryptController {
 
     Model model;
-    //String cle = "awqpmndfaaaa";
-    String cle = "aaaaaaaaaaaa";
+    String cle = "awqpmndfaaaa";
     int id = 0;
     char[] keyTab = cle.toCharArray();
     String messageDecrypte = "";
@@ -40,9 +39,9 @@ public class DecryptController {
         return model.findWord(message);
     }
 
-    public void writeFile(String path, String texte) {
+   /* public void writeFile(String path, String texte) {
         model.writeFile(path, texte);
-    }
+    }*/
 
     public String readFile(String path) {
         return model.readFile(path);

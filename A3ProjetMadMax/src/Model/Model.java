@@ -1,17 +1,21 @@
 package Model;
 
-import Controller.StateController;
-
 import java.io.IOException;
 
 public class Model {
 
     DecryptModel decryptModel;
     FilesModel filesModel;
+    Map_Dic dictionnaire;
 
     public Model() {
         decryptModel = new DecryptModel();
-        filesModel = new FilesModel(StateController.getCurrentUser().getID());
+        filesModel = new FilesModel();
+        try {
+            this.dictionnaire = new Map_Dic("C:\\Users\\Mirohac\\Desktop\\Lexique3832.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String decrypt(String inputString, String key) {
@@ -19,20 +23,19 @@ public class Model {
     }
 
     public boolean findWord(String message) {
-        Map_Dic dictionnaire = new Map_Dic();
-        return dictionnaire.findWord(message);
+        boolean wordFind = false;
+        try {
+            wordFind = dictionnaire.findWord(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return wordFind;
     }
 
-    public void writeFile(String path, String texte) {
-        FilesModel fm  = new FilesModel(path);
-        filesModel.writeFile(texte);
-    }
-
-    public String readFile(String path){
-        FilesModel fm = new FilesModel(path);
+    public String readFile(String path) {
         String res = "";
         try {
-            res = filesModel.readFile();
+            res = filesModel.readFile(path);
         } catch (IOException e) {
             e.printStackTrace();
         }

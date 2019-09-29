@@ -9,6 +9,7 @@ public class DecryptModel {
         for (int i = 0; i < inputString.length(); i++) {
             chaineDecryptee += (char) ((int) inputString.charAt(i) ^ (int) key.charAt(i % key.length()));
         }
+        System.out.println(chaineDecryptee);
         return chaineDecryptee;
     }
 
